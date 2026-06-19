@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horóscopo Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="stars"></div>
+
+    <main class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">☽</span>
+                <span class="logo-text">AstroVista</span>
+            </div>
+            <h1>Seu mapa astral<br><em>em segundos</em></h1>
+            <p>Descubra seu signo e desbloqueie insights profundos sobre sua jornada cósmica.</p>
+        </header>
+
+        <section class="card card-form">
+            <form method="post" action="/" class="form">
+                <div class="field">
+                    <label for="nome">Nome</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Como você se chama?"
+                        value="{{ nome }}"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="data_nascimento">Data de Nascimento</label>
+                    <input
+                        type="date"
+                        id="data_nascimento"
+                        name="data_nascimento"
+                        value="{{ data_nascimento }}"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span>Gerar Horóscopo</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </form>
+        </section>
+
+        {% if signo %}
+        <section class="result fade-in">
+            <div class="card card-result">
+                <p class="result-greeting">Olá, <strong>{{ nome }}</strong></p>
+
+                <div class="sign-hero">
+                    <div class="sign-orb">
+                        <span class="sign-emoji">{{ emoji }}</span>
+                    </div>
+                    <div class="sign-info">
+                        <span class="badge badge-free">Gratuito</span>
+                        <h2>{{ signo }}</h2>
+                        <p class="elemento">
+                            <span>{{ elemento_emoji }}</span>
+                            Elemento {{ elemento }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <h3>Características principais</h3>
+                    <div class="tags">
+                        {% for trait in caracteristicas %}
+                        <span class="tag">{{ trait }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="info-block horoscopo-dia">
+                    <h3>Horóscopo do dia</h3>
+                    <p class="previsao">{{ previsao }}</p>
+                </div>
+            </div>
+
+            {% if desbloqueado and premium %}
+            <div class="card card-relatorio fade-in">
+                <div class="relatorio-header">
+                    <span class="badge badge-premium">✦ Desbloqueado</span>
+                    <h3>Relatório Premium</h3>
+                </div>
+
+                <dl class="relatorio-grid">
+                    <div class="relatorio-row">
+                        <dt>Nome</dt>
+                        <dd>{{ nome }}</dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Signo</dt>
+                        <dd>{{ signo }} {{ emoji }}</dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Elemento</dt>
+                        <dd>{{ elemento_emoji }} {{ elemento }}</dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Ascendente</dt>
+                        <dd>{{ premium.ascendente }}</dd>
+                    </div>
+                    <div class="relatorio-row relatorio-row-highlight">
+                        <dt>Potencial Financeiro</dt>
+                        <dd>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: {{ premium.potencial_financeiro }}%"></div>
+                            </div>
+                            <span class="score-value">{{ premium.potencial_financeiro }}/100</span>
+                        </dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Compatibilidade</dt>
+                        <dd>{{ premium.compatibilidade | join(', ') }}</dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Arquétipo</dt>
+                        <dd class="relatorio-destaque">{{ premium.arquetipo }}</dd>
+                    </div>
+                    <div class="relatorio-row">
+                        <dt>Missão de Vida</dt>
+                        <dd>{{ premium.missao_de_vida }}</dd>
+                    </div>
+                </dl>
+                <div class="relatorio-actions">
+                    <a href="/pdf?nome={{ nome | urlencode }}&data_nascimento={{ data_nascimento }}" class="btn btn-secondary">
+                        📄 Baixar Relatório PDF
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="card card-premium">
+                <div class="premium-header">
+                    <span class="badge badge-premium">✦ Premium</span>
+                    <h3>Relatório Completo</h3>
+                    <p>Insights exclusivos baseados no seu perfil astral</p>
+                </div>
+
+                <ul class="premium-list">
+                    {% for item in premium_itens %}
+                    <li class="premium-item locked">
+                        <span class="premium-item-icon">{{ item.icone }}</span>
+                        <div class="premium-item-text">
+                            <strong>{{ item.titulo }}</strong>
+                            <span>{{ item.descricao }}</span>
+                        </div>
+                        <span class="lock-badge">Bloqueado</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <form method="post" action="/desbloquear">
+                    <input type="hidden" name="nome" value="{{ nome }}">
+                    <input type="hidden" name="data_nascimento" value="{{ data_nascimento }}">
+                    <button type="submit" class="btn btn-premium">
+                        Desbloquear Relatório Completo — R$ 1,99
+                    </button>
+                </form>
+                <p class="premium-note">Demonstração gratuita — pagamento em breve.</p>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <footer class="footer">
+            <p>✦ As estrelas guiam, você decide ✦</p>
+        </footer>
+    </main>
+</body>
+</html>

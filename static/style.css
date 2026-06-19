@@ -1,0 +1,604 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-deep: #07060f;
+    --bg-mid: #12101f;
+    --purple: #8b5cf6;
+    --purple-light: #a78bfa;
+    --gold: #e8c872;
+    --gold-dark: #c9a227;
+    --text: #f4f0ff;
+    --text-muted: #9d94b8;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --radius: 20px;
+}
+
+body {
+    font-family: "Outfit", system-ui, sans-serif;
+    min-height: 100vh;
+    background: var(--bg-deep);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.bg-glow {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.25), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(232, 200, 114, 0.08), transparent),
+        radial-gradient(ellipse 50% 30% at 0% 80%, rgba(139, 92, 246, 0.12), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.stars {
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 55% 65%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 75% 15%, rgba(232, 200, 114, 0.6), transparent),
+        radial-gradient(1px 1px at 35% 85%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 88% 45%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 5% 55%, rgba(255, 255, 255, 0.3), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 0.5rem 0 1rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding: 0.4rem 1rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+}
+
+.logo-icon {
+    font-size: 1.1rem;
+    color: var(--gold);
+}
+
+.logo-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.header h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--text);
+}
+
+.header h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header p {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Cards */
+.card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    backdrop-filter: blur(20px);
+}
+
+/* Form */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.field label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.field input {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 0.9rem 1.1rem;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input::placeholder {
+    color: rgba(157, 148, 184, 0.6);
+}
+
+.field input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.field input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.75);
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.btn-primary {
+    margin-top: 0.25rem;
+    background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.35);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.45);
+}
+
+.btn-arrow {
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+.btn-premium {
+    margin-top: 1.25rem;
+    padding: 1.15rem 1.5rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: #1a1208;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 28px rgba(232, 200, 114, 0.35);
+}
+
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 36px rgba(232, 200, 114, 0.5);
+}
+
+/* Result */
+.fade-in {
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.result-greeting {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.result-greeting strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.sign-hero {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.sign-orb {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 30% 30%, rgba(232, 200, 114, 0.2), rgba(139, 92, 246, 0.15));
+    border: 1px solid rgba(232, 200, 114, 0.25);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+.sign-emoji {
+    font-size: 2.75rem;
+    line-height: 1;
+}
+
+.sign-info h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.1;
+}
+
+.elemento {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: 0.5rem;
+}
+
+.badge-free {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--purple-light);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.badge-premium {
+    background: rgba(232, 200, 114, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(232, 200, 114, 0.3);
+}
+
+.info-block {
+    margin-bottom: 1.5rem;
+}
+
+.info-block:last-child {
+    margin-bottom: 0;
+}
+
+.info-block h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    padding: 0.4rem 0.85rem;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--purple-light);
+}
+
+.horoscopo-dia {
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    border: 1px solid var(--glass-border);
+}
+
+.previsao {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text);
+    font-weight: 300;
+}
+
+/* Premium section */
+.card-premium {
+    border-color: rgba(232, 200, 114, 0.2);
+    background: linear-gradient(160deg, rgba(232, 200, 114, 0.06) 0%, var(--glass) 40%);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-premium::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.5;
+}
+
+.premium-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.premium-header h3 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0.5rem 0 0.35rem;
+}
+
+.premium-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.premium-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.premium-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-item.locked {
+    filter: blur(0.3px);
+}
+
+.premium-item.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(7, 6, 15, 0.15), transparent);
+    pointer-events: none;
+}
+
+.premium-item-icon {
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    width: 2rem;
+    text-align: center;
+}
+
+.premium-item-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.premium-item-text strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.premium-item-text span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.lock-badge {
+    flex-shrink: 0;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text-muted);
+}
+
+.premium-note {
+    margin-top: 0.85rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Relatório Premium */
+.card-relatorio {
+    border-color: rgba(232, 200, 114, 0.35);
+    background: linear-gradient(160deg, rgba(232, 200, 114, 0.1) 0%, rgba(139, 92, 246, 0.06) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-relatorio::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--gold), var(--purple));
+}
+
+.relatorio-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.relatorio-header h3 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-top: 0.5rem;
+}
+
+.relatorio-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.relatorio-row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
+    align-items: center;
+}
+
+.relatorio-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.relatorio-row dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.relatorio-row dd {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+}
+
+.relatorio-row-highlight dd {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.relatorio-destaque {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    color: var(--gold) !important;
+}
+
+.score-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    border-radius: 100px;
+    transition: width 1s ease;
+}
+
+.score-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.footer {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.footer p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
